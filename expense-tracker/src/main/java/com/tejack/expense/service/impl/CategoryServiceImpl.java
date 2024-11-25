@@ -2,6 +2,7 @@ package com.tejack.expense.service.impl;
 
 import com.tejack.expense.dto.CategoryDto;
 import com.tejack.expense.entity.Category;
+import com.tejack.expense.exceptions.ResourceNotFoundException;
 import com.tejack.expense.mapper.CategoryMapper;
 import com.tejack.expense.repository.CategoryRepository;
 import com.tejack.expense.service.CategoryService;
@@ -50,7 +51,7 @@ public class CategoryServiceImpl implements CategoryService {
     public CategoryDto updateCategory(Long categoryId, CategoryDto categoryDto) {
 
         Category category = categoryRepository.findById(categoryId)
-                .orElseThrow(() -> new RuntimeException("Category not found with id: " + categoryId));
+                .orElseThrow(() -> new ResourceNotFoundException("Category not found with id: " + categoryId));
 
         category.setName(categoryDto.name());
 
@@ -63,7 +64,7 @@ public class CategoryServiceImpl implements CategoryService {
     public void deleteCategory(Long categoryId) {
 
         Category category = categoryRepository.findById(categoryId)
-                .orElseThrow(() -> new RuntimeException("Category not found with id: " + categoryId));
+                .orElseThrow(() -> new ResourceNotFoundException("Category not found with id: " + categoryId));
 
         categoryRepository.delete(category);
     }

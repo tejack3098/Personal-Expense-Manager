@@ -49,9 +49,7 @@ public class ExpenseController {
                                                     @RequestBody ExpenseDto expenseDto){
 
         ExpenseDto updatedExpense = expenseService.updateExpense(expenseId, expenseDto);
-
         return ResponseEntity.ok(updatedExpense);
-
     }
 
     // Build delete expense REST API

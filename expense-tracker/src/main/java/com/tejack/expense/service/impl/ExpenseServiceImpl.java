@@ -4,6 +4,7 @@ package com.tejack.expense.service.impl;
 import com.tejack.expense.dto.ExpenseDto;
 import com.tejack.expense.entity.Category;
 import com.tejack.expense.entity.Expense;
+import com.tejack.expense.exceptions.ResourceNotFoundException;
 import com.tejack.expense.mapper.ExpenseMapper;
 import com.tejack.expense.repository.CategoryRepository;
 import com.tejack.expense.repository.ExpenseRepository;
@@ -41,7 +42,7 @@ public class ExpenseServiceImpl implements ExpenseService {
 
         // get expense entity from the database using expense id
         Expense expense = expenseRepository.findById(expenseId)
-                .orElseThrow(() -> new RuntimeException("Expense not found with id: " + expenseId));
+                .orElseThrow(() -> new ResourceNotFoundException("Expense not found with id: " + expenseId));
 
         // convert expense entity to ExpenseDto
         return ExpenseMapper.mapToExpenseDto(expense);
@@ -60,7 +61,7 @@ public class ExpenseServiceImpl implements ExpenseService {
     @Override
     public ExpenseDto updateExpense(Long expenseId, ExpenseDto expenseDto) {
         Expense expense = expenseRepository.findById(expenseId)
-                .orElseThrow(() -> new RuntimeException("Expense not found with id: " + expenseId));
+                .orElseThrow(() -> new ResourceNotFoundException("Expense not found with id: " + expenseId));
 
         // update expense amount
         expense.setAmount(expenseDto.amount());
@@ -73,7 +74,7 @@ public class ExpenseServiceImpl implements ExpenseService {
 
             // get the category entity by id
             Category category = categoryRepository.findById(expenseDto.categoryDto().id())
-                    .orElseThrow(() -> new RuntimeException("Category not found with id:" + expenseDto.categoryDto().id()));
+                    .orElseThrow(() -> new ResourceNotFoundException("Category not found with id:" + expenseDto.categoryDto().id()));
 
             expense.setCategory(category);
         }
@@ -91,7 +92,7 @@ public class ExpenseServiceImpl implements ExpenseService {
         // get the expense from the database by expense id. If it is not exists
         // then throw the runtime exception
         Expense expense = expenseRepository.findById(expenseId)
-                .orElseThrow(() -> new RuntimeException("Expense not found with id: " + expenseId));
+                .orElseThrow(() -> new ResourceNotFoundException("Expense not found with id: " + expenseId));
 
         expenseRepository.delete(expense);
 
