@@ -1,0 +1,13 @@
+<div *ngIf="category">
+    <form (ngSubmit)="saveCategory()">
+      <div>
+        <label for="name">Category Name:</label>
+        <input id="name" [ngModel]="category.name" (ngModelChange)="category.name = $event" name="name" required>
+      </div>
+      <div>
+        <label for="description">Description:</label>
+        <input id="description" [ngModel]="category.description" (ngModelChange)="category.description = $event" name="description">
+      </div>
+      <button type="submit">Save Category</button>
+    </form>
+  </div>
