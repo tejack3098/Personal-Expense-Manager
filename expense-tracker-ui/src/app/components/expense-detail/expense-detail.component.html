@@ -1,0 +1,22 @@
+<div *ngIf="expenseForm">
+    <form [formGroup]="expenseForm" (ngSubmit)="updateExpense()">
+      <div>
+        <label for="name">Name:</label>
+        <input formControlName="name" id="name" required>
+        <div *ngIf="expenseForm.get('name')?.errors?.['required']">
+            Name is required.
+          </div>
+          
+      </div>
+      <div>
+        <label for="amount">Amount:</label>
+        <input formControlName="amount" id="amount" type="number" required>
+        <div *ngIf="expenseForm.get('amount')?.errors?.['required']">
+          Amount is required.
+        </div>
+      </div>
+      <button type="submit" [disabled]="!expenseForm.valid">Update Expense</button>
+      <button type="button" (click)="deleteExpense()">Delete Expense</button>
+    </form>
+  </div>
+  
