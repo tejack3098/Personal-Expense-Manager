@@ -1,0 +1,12 @@
+<div>
+    <h2>Expenses</h2>
+    <ul>
+      <li *ngFor="let expense of expenses">{{ expense.name }} - ${{ expense.amount }}</li>
+    </ul>
+    
+    <h2>Categories</h2>
+    <ul>
+      <li *ngFor="let category of categories">{{ category.name }}</li>
+    </ul>
+  </div>
+  
